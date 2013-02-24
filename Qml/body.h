@@ -2,19 +2,23 @@
 #define BODY_H
 
 #include <QQuickItem>
+
 #include "Box2D/Box2D.h"
+#include "world.h"
 class Body : public QQuickItem
 {
     Q_OBJECT
 public:
     explicit Body(QQuickItem *parent = 0);
-    void initialize(b2World * wolrd);
-    void sinc();
+    virtual void initialize(b2World * wolrd);
+    virtual void sinc();
+
 signals:
     
 public slots:
-private:
+protected:
     b2Body *body;
+    World *m_wolrd;
 };
 
 #endif // BODY_H

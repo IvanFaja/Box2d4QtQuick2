@@ -49,8 +49,9 @@ HEADERS += \
     Box2D/Collision/Shapes/b2EdgeShape.h \
     Box2D/Collision/Shapes/b2CircleShape.h \
     Box2D/Collision/Shapes/b2ChainShape.h \
-    Qml/word.h \
-    Qml/body.h
+    Qml/body.h \
+    Qml/staticbody.h \
+    Qml/world.h
 
 SOURCES += \
     Box2D/Rope/b2Rope.cpp \
@@ -98,5 +99,6 @@ SOURCES += \
     Box2D/Collision/Shapes/b2EdgeShape.cpp \
     Box2D/Collision/Shapes/b2CircleShape.cpp \
     Box2D/Collision/Shapes/b2ChainShape.cpp \
-    Qml/word.cpp \
-    Qml/body.cpp
+    Qml/body.cpp \
+    Qml/staticbody.cpp \
+    Qml/world.cpp

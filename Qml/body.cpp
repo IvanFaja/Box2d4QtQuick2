@@ -7,36 +7,38 @@ Body::Body(QQuickItem *parent) :
 
 void Body::initialize(b2World *wolrd)
 {
-    b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0.0f, -10.0f);
-    b2Body* groundBody = wolrd->CreateBody(&groundBodyDef);
-    b2PolygonShape groundBox;
-    groundBox.SetAsBox(50.0f, 10.0f);
-    groundBody->CreateFixture(&groundBox, 0.0f);
+    m_wolrd = dynamic_cast<World *>( parent() );
+    if(m_wolrd){
+        b2BodyDef m_def;
+        m_def.type = b2_dynamicBody;
 
+        b2Vec2 pos = m_wolrd->pointToBox2d(position());
+        m_def.position.Set(pos.x,pos.y);
 
-    b2BodyDef m_def;
-    m_def.type = b2_dynamicBody;
-    m_def.position.Set(0 , 10);
-    body = wolrd->CreateBody(&m_def);
-    b2PolygonShape box;
-    box.SetAsBox(1.0f, 1.0f);
+        body = wolrd->CreateBody(&m_def);
+        b2PolygonShape box;
+        box.SetAsBox(1.0f, 1.0f);
 
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &box;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
-    fixtureDef.restitution =0.99999;
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &box;
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.3f;
+        fixtureDef.restitution =0.1;
 
-    body->CreateFixture(&fixtureDef);
+        body->CreateFixture(&fixtureDef);
+    }else {
+        qWarning()<<" body parent must be a Wolrd ";
+    }
 }
 
 void Body::sinc()
 {
     b2Vec2 pos = body->GetPosition();
-    qreal x = pos.x*10.0f;
-    qreal y = (-pos.y +10.0f)*50.0f;
-    setPosition(QPointF(x,y));
-    qDebug()<<"pos = "<<x<<y;
+    float32 angle = body->GetAngle();
+    setRotation( angle*180.0f/3.1416f );
+    setPosition(m_wolrd->pointFromWorld(pos));
+    qDebug()<<"pos = "<<x()<<y();
     update();
 }
+
+
