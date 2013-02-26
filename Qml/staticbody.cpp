@@ -1,4 +1,5 @@
 #include "staticbody.h"
+
 #include <QDebug>
 StaticBody::StaticBody(QQuickItem *parent) :
     Body(parent)

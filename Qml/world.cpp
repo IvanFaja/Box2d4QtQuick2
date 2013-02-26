@@ -1,6 +1,6 @@
 #include "world.h"
 #include "Box2D/Box2D.h"
-#include "body.h"
+#include "worlditem.h"
 
 #include <QDebug>
 
@@ -49,6 +49,7 @@ QPointF World::pointFromWorld(const b2Vec2 &point)
     itemPoint.setY(height() - sizeFromWorld( point.y ));
     return itemPoint;
 }
+
 void World::componentComplete()
 {
     QQuickItem::componentComplete();
@@ -57,9 +58,9 @@ void World::componentComplete()
     m_wolrd = new b2World(g);
     QList<QQuickItem*> children = childItems();
     for(int i = 0 ;i < children.size() ;++i){
-        Body* body = dynamic_cast<Body*>(children.at(i));
-        if(body){
-            body->initialize( m_wolrd );
+        WorldItem* tiem = dynamic_cast<WorldItem*>(children.at(i));
+        if(tiem){
+            tiem->initialize( m_wolrd );
         }else{
             qWarning()<<"World item child must be a Body";
         }

@@ -1,5 +1,4 @@
 #ifndef STATICBODY_H
-#define STATICBODY_H
 #include "body.h"
 #include <QVector>
 
@@ -15,8 +14,6 @@ signals:
 public slots:
 private:
     QVector<b2Vec2> points;
-
-    
 };
 
 #endif // STATICBODY_H

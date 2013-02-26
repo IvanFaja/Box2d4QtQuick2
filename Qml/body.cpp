@@ -1,7 +1,7 @@
 #include "body.h"
 #include <QDebug>
 Body::Body(QQuickItem *parent) :
-    QQuickItem(parent)
+    WorldItem(parent)
 {
 }
 
