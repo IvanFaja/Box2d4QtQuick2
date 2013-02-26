@@ -1,39 +1,39 @@
-#include "word.h"
+#include "world.h"
 #include "Box2D/Box2D.h"
-#include "body.h"
+#include "worlditem.h"
 
 #include <QDebug>
 
-Word::Word(QQuickItem *parent) :
+World::World(QQuickItem *parent) :
     QQuickItem(parent)
 {
 
 }
 
-Word::~Word()
+World::~World()
 {
     delete m_wolrd;
 }
 
-void Word::setGx(float x)
+void World::setGx(float x)
 {
     m_gravity.setX(x);
 }
 
-float Word::gx()
+float World::gx()
 {
     return m_gravity.x();
 }
-void Word::setGy(float y)
+void World::setGy(float y)
 {
     m_gravity.setY(y);
 }
 
-float Word::gy()
+float World::gy()
 {
     return m_gravity.y();
 }
-void Word::componentComplete()
+void World::componentComplete()
 {
     QQuickItem::componentComplete();
     b2Vec2 g(m_gravity.x(),m_gravity.y());
@@ -41,7 +41,7 @@ void Word::componentComplete()
     m_wolrd = new b2World(g);
     QList<QQuickItem*> children = childItems();
     for(int i = 0 ;i < children.size() ;++i){
-        Body* body = dynamic_cast<Body*>(children.at(i));
+        Body* body = dynamic_cast<WorldItem*>(children.at(i));
         if(body){
             body->initialize( m_wolrd );
         }else{
@@ -52,7 +52,7 @@ void Word::componentComplete()
     timer.start(timeStep,this);
 }
 
-void Word::timerEvent(QTimerEvent *event)
+void World::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId()) {
         step();
@@ -62,7 +62,7 @@ void Word::timerEvent(QTimerEvent *event)
 }
 
 
-void Word::step()
+void World::step()
 {
     float32 timeStep = 1.0f/24.0f;
     qDebug()<<"sinc"<<timeStep;

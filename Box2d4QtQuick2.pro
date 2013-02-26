@@ -2,6 +2,8 @@ QT += qml quick
 TEMPLATE = lib
 TARGET = qmlbox2d
 CONFIG += staticlib
+CONFIG += ordered
+INCLUDEPATH += $$PWD
 HEADERS += \
     Box2D/Box2D.h \
     Box2D/Rope/b2Rope.h \
@@ -51,7 +53,9 @@ HEADERS += \
     Box2D/Collision/Shapes/b2ChainShape.h \
     Qml/body.h \
     Qml/staticbody.h \
-    Qml/world.h
+    Qml/world.h \
+    Qml/worlditem.h \
+    Qml/join.h \
 
 SOURCES += \
     Box2D/Rope/b2Rope.cpp \
@@ -101,4 +105,6 @@ SOURCES += \
     Box2D/Collision/Shapes/b2ChainShape.cpp \
     Qml/body.cpp \
     Qml/staticbody.cpp \
-    Qml/world.cpp
+    Qml/world.cpp \
+    Qml/worlditem.cpp \
+    Qml/join.cpp

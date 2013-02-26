@@ -1,11 +1,14 @@
 #ifndef BODY_H
 #define BODY_H
 
+
+#include "world.h"
+#include "Box2D/Box2D.h"
+#include "worlditem.h"
+
 #include <QQuickItem>
 
-#include "Box2D/Box2D.h"
-#include "world.h"
-class Body : public QQuickItem
+class Body : public WorldItem
 {
     Q_OBJECT
 public:
@@ -14,7 +17,7 @@ public:
     virtual void sinc();
 
 signals:
-    
+
 public slots:
 protected:
     b2Body *body;
