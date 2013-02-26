@@ -15,7 +15,7 @@ public:
     explicit Body(QQuickItem *parent = 0);
     virtual void initialize(b2World * wolrd);
     virtual void sinc();
-
+    b2Body * getBody(){return body;}
 signals:
 
 public slots:
