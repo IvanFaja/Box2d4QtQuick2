@@ -1,5 +1,5 @@
 #include "ropejoin.h"
-#include <Box2D/Rope/b2Rope.h>
+#include "Box2D/Box2D.h"
 RopeJoin::RopeJoin(QQuickItem *parent):Join(parent)
 {
     m_length = 0.0f;

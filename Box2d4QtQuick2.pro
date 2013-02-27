@@ -58,7 +58,8 @@ HEADERS += \
     Qml/join.h \
     Qml/ropejoin.h \
     Qml/simplestaticbody.h \
-    Qml/springjoin.h
+    Qml/springjoin.h \
+    Qml/box2d4qml.h
 
 SOURCES += \
     Box2D/Rope/b2Rope.cpp \

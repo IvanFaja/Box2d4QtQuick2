@@ -2,10 +2,9 @@
 #define BODY_H
 #include "world.h"
 #include "worlditem.h"
-
-#include "Box2D/Box2D.h"
 #include <QQuickItem>
-
+class b2World;
+class b2Body;
 class Body : public WorldItem
 {
     Q_OBJECT

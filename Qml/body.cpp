@@ -1,5 +1,6 @@
 #include "body.h"
 #include <QDebug>
+#include "Box2D/Box2D.h"
 Body::Body(QQuickItem *parent) :
     WorldItem(parent)
 {
@@ -18,8 +19,8 @@ void Body::initialize(b2World *wolrd)
 
         b2Vec2 pos = m_wolrd->pointToBox2d(position());
         m_def.position.Set(pos.x,pos.y);
-        m_def.linearDamping = 0.1f;
-        m_def.angularDamping = 0.1f;
+        m_def.linearDamping = 0.2f;
+        m_def.angularDamping = 0.2f;
         body = wolrd->CreateBody(&m_def);
         b2PolygonShape box;
         box.SetAsBox(1.0f, 1.0f);
@@ -47,9 +48,11 @@ void Body::forceMove(qreal x, qreal y)
 {
     QQuickItem *p = static_cast<QQuickItem *>(parent());
     QPointF pPos = QQuickItem::mapToItem(p,QPointF(x,y));
-    float32 angle = body->GetTransform().q.GetAngle();
+//    float32 angle = body->GetTransform().q.GetAngle();
     b2Vec2 pos = m_wolrd->pointToBox2d(pPos);
-    body->SetTransform(pos,angle);
+    body->ApplyForce(body->GetLocalPoint(pos),
+                     body->GetWorldCenter());
+//    body->SetTransform(pos,angle);
 }
 
 

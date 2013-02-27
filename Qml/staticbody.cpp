@@ -1,5 +1,5 @@
 #include "staticbody.h"
-
+#include "Box2D/Box2D.h"
 #include <QDebug>
 StaticBody::StaticBody(QQuickItem *parent) :
     Body(parent)

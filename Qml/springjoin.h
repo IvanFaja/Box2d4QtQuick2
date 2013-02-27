@@ -9,7 +9,7 @@ class SpringJoin : public RopeJoin
 
 public:
     explicit SpringJoin(QQuickItem *parent = 0);
-    void initialize(b2World *wolrd);
+    void initialize(b2World *world);
 
     qreal frecuency(){return m_hz;}
     void setFrecuency(qreal hz){m_hz = hz;}

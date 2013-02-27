@@ -2,8 +2,9 @@
 #define WORD_H
 
 #include <QQuickItem>
-#include "Box2D/Box2D.h"
 #include <QBasicTimer>
+#include <Box2D/Common/b2Math.h>
+class b2World;
 class World : public QQuickItem
 {
     Q_OBJECT
@@ -33,7 +34,7 @@ private:
     QBasicTimer timer;
     b2World * m_wolrd;
     QPointF m_gravity;
-    float32 scale;
+    qreal scale;
 };
 
 #endif // WORD_H

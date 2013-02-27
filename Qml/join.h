@@ -12,7 +12,7 @@ public:
     explicit Join(QQuickItem *parent = 0);
 
     Body* bodyA(){return m_bodyA;}
-    Body* bodyB(){return m_bodyA;}
+    Body* bodyB(){return m_bodyB;}
 
     void setBodyA(Body* body){
         m_bodyA = body;
