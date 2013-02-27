@@ -5,13 +5,13 @@
 class RopeJoin : public Join
 {
     Q_OBJECT
-    Q_PROPERTY( float32 lenght READ lenght WRITE setLenght )
+    Q_PROPERTY( qreal lenght READ lenght WRITE setLenght )
 public:
-    RopeJoin(QQuickItem * parent);
+    RopeJoin(QQuickItem * parent = 0);
     void initialize(b2World *world);
 
-    float32 lenght(){return m_lenght;}
-    void setLenght(float32 lenght ){
+    qreal lenght(){return m_lenght;}
+    void setLenght(qreal lenght ){
         m_lenght = lenght;
     }
 protected:

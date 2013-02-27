@@ -5,6 +5,10 @@ Body::Body(QQuickItem *parent) :
 {
 }
 
+Body::~Body()
+{
+}
+
 void Body::initialize(b2World *wolrd)
 {
     m_wolrd = dynamic_cast<World *>( parent() );
@@ -37,8 +41,16 @@ void Body::sinc()
     float32 angle = body->GetAngle();
     setRotation( angle*180.0f/3.1416f );
     setPosition(m_wolrd->pointFromWorld(pos));
-    qDebug()<<"pos = "<<x()<<y();
-    update();
+}
+
+void Body::forceMove(qreal x, qreal y)
+{
+    QQuickItem *p = static_cast<QQuickItem *>(parent());
+    QPointF pPos = QQuickItem::mapToItem(p,QPointF(x,y));
+    float32 angle = body->GetTransform().q.GetAngle();
+    b2Vec2 pos = m_wolrd->pointToBox2d(pPos);
+    body->SetTransform(pos,angle);
+    qDebug()<<"moving"<<x<<y;
 }
 
 

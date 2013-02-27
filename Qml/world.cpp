@@ -38,7 +38,7 @@ b2Vec2 World::pointToBox2d(const QPointF &point)
 {
     b2Vec2 worldPoint;
     worldPoint.x = sizeToWorld( point.x());
-    worldPoint.y = sizeToWorld( point.y() + height() );
+    worldPoint.y = sizeToWorld( height() - point.y() );
     return worldPoint;
 }
 
@@ -86,9 +86,9 @@ void World::step()
     m_wolrd->Step(timeStep,10,5);
     QList<QQuickItem*> children = childItems();
     for(int i = 0 ;i < children.size() ;++i){
-        Body* body = dynamic_cast<Body*>(children.at(i));
-        if(body){
-            body->sinc();
+        WorldItem* item = dynamic_cast<WorldItem*>(children.at(i));
+        if(item){
+            item->sinc();
         }else{
             qWarning()<<"World item child must be a Body";
         }
@@ -96,12 +96,12 @@ void World::step()
 }
 
 
-float32 World::sizeToWorld(float32 size)
+qreal World::sizeToWorld(qreal size)
 {
     return size*scale;
 }
 
-float32 World::sizeFromWorld(float32 size)
+qreal World::sizeFromWorld(qreal size)
 {
     return size/scale;
 }

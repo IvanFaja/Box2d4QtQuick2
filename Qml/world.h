@@ -20,8 +20,8 @@ public:
     b2Vec2 pointToBox2d( const QPointF &point);
     QPointF pointFromWorld(const b2Vec2 &point);
 
-    float32 sizeToWorld( float32 size );
-    float32 sizeFromWorld( float32 size );
+    Q_INVOKABLE qreal sizeToWorld( qreal size );
+    Q_INVOKABLE qreal sizeFromWorld( qreal size );
 
 signals:
 

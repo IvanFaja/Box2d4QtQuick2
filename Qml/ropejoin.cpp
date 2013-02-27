@@ -2,12 +2,13 @@
 #include <Box2D/Rope/b2Rope.h>
 RopeJoin::RopeJoin(QQuickItem *parent):Join(parent)
 {
+    m_lenght = 0.0f;
 }
 
 void RopeJoin::initialize(b2World *world)
 {
     m_world = world;
-    if(wolrd){
+    if(world){
     b2RopeJointDef joinDef;
 
     joinDef.bodyA = m_bodyA->getBody();
@@ -16,6 +17,6 @@ void RopeJoin::initialize(b2World *world)
     joinDef.localAnchorA =m_bodyB->getBody()->GetLocalCenter();
     joinDef.maxLength = m_lenght;
 
-    joint = world->CreateJoint(joinDef);
+    joint = ( b2RopeJoint* )world->CreateJoint(&joinDef);
     }
 }

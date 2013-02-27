@@ -27,7 +27,7 @@ public slots:
 protected:
     Body *m_bodyA;
     Body *m_bodyB;
-    World * m_world;
+    b2World * m_world;
 };
 
 #endif // JOIN_H

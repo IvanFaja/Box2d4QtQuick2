@@ -4,8 +4,9 @@
 StaticBody::StaticBody(QQuickItem *parent) :
     Body(parent)
 {
-    points.append(b2Vec2(0,10));
-    points.append(b2Vec2(300,50));
+    points.append(b2Vec2(0,5));
+    points.append(b2Vec2(10.0f,6.0f));
+    points.append(b2Vec2(20.0f,10.0f));
 }
 
 void StaticBody::initialize(b2World *wolrd)
@@ -14,9 +15,11 @@ void StaticBody::initialize(b2World *wolrd)
     if(m_wolrd){
 
         b2BodyDef bodyDef;
+        b2Vec2 pos = m_wolrd->pointToBox2d(position());
+        bodyDef.position.Set(pos.x,pos.y);
         body = wolrd->CreateBody(&bodyDef);
         b2ChainShape chain;
-        chain.CreateChain( points.data(), points.size() );
+        chain.CreateLoop( points.data(), points.size() );
 
         body->CreateFixture(&chain,0.0f);
 
@@ -28,8 +31,4 @@ void StaticBody::initialize(b2World *wolrd)
 
 void StaticBody::sinc()
 {
-    //static body dont move
-    qWarning()<<" ******************* ";
-    b2Vec2 pos = body->GetPosition();
-    qDebug()<<"pos = "<<pos.x<<pos.y;
 }

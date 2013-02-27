@@ -2,7 +2,7 @@
 #define WORLDITEM_H
 
 #include <QQuickItem>
-
+class b2World;
 class WorldItem : public QQuickItem
 {
     Q_OBJECT
