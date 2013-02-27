@@ -50,7 +50,6 @@ void Body::forceMove(qreal x, qreal y)
     float32 angle = body->GetTransform().q.GetAngle();
     b2Vec2 pos = m_wolrd->pointToBox2d(pPos);
     body->SetTransform(pos,angle);
-    qDebug()<<"moving"<<x<<y;
 }
 
 
