@@ -5,10 +5,6 @@ WorldItem::WorldItem(QQuickItem *parent) :
 {
 }
 
-void WorldItem::initialize(b2World *wolrd)
-{
-}
-
 void WorldItem::sinc()
 {
 }

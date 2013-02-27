@@ -18,7 +18,8 @@ void Body::initialize(b2World *wolrd)
 
         b2Vec2 pos = m_wolrd->pointToBox2d(position());
         m_def.position.Set(pos.x,pos.y);
-
+        m_def.linearDamping = 0.1f;
+        m_def.angularDamping = 0.1f;
         body = wolrd->CreateBody(&m_def);
         b2PolygonShape box;
         box.SetAsBox(1.0f, 1.0f);
@@ -27,8 +28,7 @@ void Body::initialize(b2World *wolrd)
         fixtureDef.shape = &box;
         fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.3f;
-        fixtureDef.restitution =0.1;
-
+        fixtureDef.restitution =0.1f;
         body->CreateFixture(&fixtureDef);
     }else {
         qWarning()<<" body parent must be a Wolrd ";

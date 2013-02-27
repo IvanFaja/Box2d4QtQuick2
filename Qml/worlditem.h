@@ -9,7 +9,7 @@ class WorldItem : public QQuickItem
 public:
     explicit WorldItem(QQuickItem *parent = 0);
 
-    virtual void initialize(b2World * wolrd);
+    virtual void initialize(b2World * wolrd) = 0;
     virtual void sinc();
 signals:
 public slots:

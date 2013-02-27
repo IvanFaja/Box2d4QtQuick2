@@ -7,7 +7,7 @@
 World::World(QQuickItem *parent) :
     QQuickItem(parent)
 {
-    scale = 0.1;
+    scale = 0.1f;
 }
 
 World::~World()
