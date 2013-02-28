@@ -10,7 +10,7 @@ public:
     explicit WorldItem(QQuickItem *parent = 0);
 
     virtual void initialize(b2World * wolrd) = 0;
-    virtual void sinc();
+    virtual void sinc() = 0;
 signals:
 public slots:
 

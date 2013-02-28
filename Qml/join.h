@@ -21,6 +21,7 @@ public:
     void setBodyB(Body* body){
         m_bodyB = body;
     }
+    virtual void sinc(){;}
 signals:
 
 public slots:

@@ -13,7 +13,8 @@ void SimpleStaticBody::initialize(b2World *wolrd)
 
         b2BodyDef bodyDef;
         b2Vec2 pos = m_wolrd->pointToBox2d(position());
-        bodyDef.position.Set(pos.x,pos.y);
+        bodyDef.position.Set(pos.x,
+                             pos.y - m_wolrd->sizeToWorld(height()));
         body = wolrd->CreateBody(&bodyDef);
         b2PolygonShape box;
         box.SetAsBox(m_wolrd->sizeToWorld(width()),
@@ -23,4 +24,8 @@ void SimpleStaticBody::initialize(b2World *wolrd)
     }else {
         qWarning()<<" body parent must be a Wolrd ";
     }
+}
+
+void SimpleStaticBody::sinc()
+{
 }

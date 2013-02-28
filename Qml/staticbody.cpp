@@ -16,7 +16,7 @@ void StaticBody::initialize(b2World *wolrd)
 
         b2BodyDef bodyDef;
         b2Vec2 pos = m_wolrd->pointToBox2d(position());
-        bodyDef.position.Set(pos.x,pos.y);
+        bodyDef.position.Set(pos.x,pos.y - m_wolrd->sizeToWorld(height()));
         body = wolrd->CreateBody(&bodyDef);
         b2ChainShape chain;
         chain.CreateLoop( points.data(), points.size() );

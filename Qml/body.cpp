@@ -17,13 +17,14 @@ void Body::initialize(b2World *wolrd)
         b2BodyDef m_def;
         m_def.type = b2_dynamicBody;
 
-        b2Vec2 pos = m_wolrd->pointToBox2d(position());
-        m_def.position.Set(pos.x,pos.y);
+        const b2Vec2 pos = m_wolrd->pointToBox2d(position());
+        m_def.position.Set(pos.x,
+                           pos.y );
         m_def.linearDamping = 0.2f;
         m_def.angularDamping = 0.2f;
         body = wolrd->CreateBody(&m_def);
         b2PolygonShape box;
-        box.SetAsBox(1.0f, 1.0f);
+        box.SetAsBox(m_wolrd->sizeToWorld(width()), m_wolrd->sizeToWorld(height()));
 
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &box;
@@ -38,21 +39,24 @@ void Body::initialize(b2World *wolrd)
 
 void Body::sinc()
 {
-    b2Vec2 pos = body->GetPosition();
+    const b2Vec2 pos = body->GetPosition();
     float32 angle = body->GetAngle();
     setRotation( angle*180.0f/3.1416f );
-    setPosition(m_wolrd->pointFromWorld(pos));
+    QPointF qPoint = m_wolrd->pointFromWorld(pos);
+    setPosition( qPoint );
+
 }
 
 void Body::forceMove(qreal x, qreal y)
 {
-    QQuickItem *p = static_cast<QQuickItem *>(parent());
-    QPointF pPos = QQuickItem::mapToItem(p,QPointF(x,y));
-//    float32 angle = body->GetTransform().q.GetAngle();
-    b2Vec2 pos = m_wolrd->pointToBox2d(pPos);
-    body->ApplyForce(body->GetLocalPoint(pos),
-                     body->GetWorldCenter());
-//    body->SetTransform(pos,angle);
+//    QQuickItem *p = static_cast<QQuickItem *>(parent());
+//    QPointF pPos = QQuickItem::mapToItem(p,QPointF(x,y));
+////    float32 angle = body->GetTransform().q.GetAngle();
+//    b2Vec2 pos = m_wolrd->pointToBox2d(pPos);
+//    body->ApplyForce(pos,
+//                     body->GetWorldCenter());
+////    body->SetTransform(pos,angle);
+
 }
 
 

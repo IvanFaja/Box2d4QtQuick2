@@ -5,6 +5,3 @@ WorldItem::WorldItem(QQuickItem *parent) :
 {
 }
 
-void WorldItem::sinc()
-{
-}
