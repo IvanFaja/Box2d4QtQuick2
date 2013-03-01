@@ -5,6 +5,10 @@ Body::Body(QQuickItem *parent) :
     WorldItem(parent)
 {
     m_mouse = 0;
+    m_restitution = 0;
+    m_density = 1.0f;
+    m_friction = 0.1f;
+    m_moveForce = 11.0f;
 }
 
 Body::~Body()
@@ -63,7 +67,7 @@ void Body::forceMove(qreal x, qreal y)
         b2MouseJointDef def;
         def.bodyA = m_parent->referenceBody();
         def.bodyB = body;
-        def.maxForce = 11 *body->GetMass();
+        def.maxForce = m_moveForce *body->GetMass();
         def.target = pos;
         m_mouse = (b2MouseJoint *) m_wolrd->CreateJoint(&def);
     }

@@ -12,6 +12,7 @@ class Body : public WorldItem
     Q_PROPERTY(qreal restitution READ restitution WRITE setRestitution)
     Q_PROPERTY(qreal density READ density WRITE setDensity)
     Q_PROPERTY(qreal friction READ friction WRITE setFriction)
+    Q_PROPERTY(qreal moveForce READ moveForce WRITE setMoveForce)
 public:
     explicit Body(QQuickItem *parent = 0);
     ~Body();
@@ -30,6 +31,9 @@ public:
     qreal friction(){return m_friction;}
     void setFriction(qreal val){m_friction = val;}
 
+    qreal moveForce(){return m_moveForce;}
+    void setMoveForce(qreal val){m_moveForce = val;}
+
 signals:
 
 public slots:
@@ -41,6 +45,7 @@ protected:
     qreal m_restitution;
     qreal m_density;
     qreal m_friction;
+    qreal m_moveForce;
 };
 
 #endif // BODY_H
