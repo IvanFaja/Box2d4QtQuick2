@@ -4,10 +4,22 @@
 
 #include <QDebug>
 
+void World::createRefecence()
+{
+    b2BodyDef bodyDef;
+    bodyDef.position.Set(0,0);
+    m_referenceBody = m_wolrd->CreateBody(&bodyDef);
+    b2PolygonShape box;
+    box.SetAsBox(0.1f,
+                 0.1f);
+    m_referenceBody->CreateFixture(&box,0.0f);
+}
+
 World::World(QQuickItem *parent) :
     QQuickItem(parent)
 {
     scale = 0.1;
+
 }
 
 World::~World()
@@ -56,6 +68,7 @@ void World::componentComplete()
     b2Vec2 g(m_gravity.x(),m_gravity.y());
     qDebug()<<"gravity"<<m_gravity.x()<<m_gravity.y();
     m_wolrd = new b2World(g);
+    createRefecence();
     QList<QQuickItem*> children = childItems();
     for(int i = 0 ;i < children.size() ;++i){
         WorldItem* tiem = dynamic_cast<WorldItem*>(children.at(i));

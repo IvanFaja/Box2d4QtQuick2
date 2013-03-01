@@ -11,12 +11,12 @@ StaticBody::StaticBody(QQuickItem *parent) :
 
 void StaticBody::initialize(b2World *wolrd)
 {
-    m_wolrd = dynamic_cast<World *>( parent() );
-    if(m_wolrd){
+    m_parent = dynamic_cast<World *>( parent() );
+    if(m_parent){
 
         b2BodyDef bodyDef;
-        b2Vec2 pos = m_wolrd->pointToBox2d(position());
-        bodyDef.position.Set(pos.x,pos.y - m_wolrd->sizeToWorld(height()));
+        b2Vec2 pos = m_parent->pointToBox2d(position());
+        bodyDef.position.Set(pos.x,pos.y );
         body = wolrd->CreateBody(&bodyDef);
         b2ChainShape chain;
         chain.CreateLoop( points.data(), points.size() );

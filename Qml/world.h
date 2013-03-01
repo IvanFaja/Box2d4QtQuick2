@@ -5,6 +5,7 @@
 #include <QBasicTimer>
 #include <Box2D/Common/b2Math.h>
 class b2World;
+class b2Body;
 class World : public QQuickItem
 {
     Q_OBJECT
@@ -18,12 +19,14 @@ public:
     void setGy(float y);
     float gy();
 
+    inline b2Body* referenceBody(){return m_referenceBody;}
     b2Vec2 pointToBox2d( const QPointF &point);
     QPointF pointFromWorld(const b2Vec2 &point);
 
     Q_INVOKABLE qreal sizeToWorld( qreal size );
     Q_INVOKABLE qreal sizeFromWorld( qreal size );
 
+    void createRefecence();
 signals:
 
 protected:
@@ -35,6 +38,7 @@ private:
     b2World * m_wolrd;
     QPointF m_gravity;
     qreal scale;
+    b2Body* m_referenceBody;
 };
 
 #endif // WORD_H

@@ -8,17 +8,17 @@ SimpleStaticBody::SimpleStaticBody(QQuickItem *parent) :
 
 void SimpleStaticBody::initialize(b2World *wolrd)
 {
-    m_wolrd = dynamic_cast<World *>( parent() );
-    if(m_wolrd){
+    m_parent = dynamic_cast<World *>( parent() );
+    if(m_parent){
 
         b2BodyDef bodyDef;
-        b2Vec2 pos = m_wolrd->pointToBox2d(position());
-        bodyDef.position.Set(pos.x,
-                             pos.y - m_wolrd->sizeToWorld(height()));
+        b2Vec2 pos = m_parent->pointToBox2d(position());
+        bodyDef.position.Set(pos.x ,
+                             pos.y - m_parent->sizeToWorld(height()));
         body = wolrd->CreateBody(&bodyDef);
         b2PolygonShape box;
-        box.SetAsBox(m_wolrd->sizeToWorld(width()),
-                     m_wolrd->sizeToWorld(height()));
+        box.SetAsBox(m_parent->sizeToWorld(width()/2),
+                     m_parent->sizeToWorld(height())/2);
         body->CreateFixture(&box,0.0f);
 
     }else {
@@ -28,4 +28,12 @@ void SimpleStaticBody::initialize(b2World *wolrd)
 
 void SimpleStaticBody::sinc()
 {
+    const b2Vec2 pos = body->GetPosition();
+    float32 angle = body->GetAngle();
+    setRotation( angle*180.0f/3.1416f );
+    QPointF qPoint = m_parent->pointFromWorld(pos);
+    qPoint.setY(qPoint.y() - height());
+    setPosition( qPoint );
+
 }
+
