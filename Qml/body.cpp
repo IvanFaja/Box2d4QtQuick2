@@ -30,9 +30,9 @@ void Body::initialize(b2World *wolrd)
 
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &box;
-        fixtureDef.density = 1.0f;
-        fixtureDef.friction = 0.3f;
-        fixtureDef.restitution =0.1f;
+        fixtureDef.density = m_density;
+        fixtureDef.friction = m_friction;
+        fixtureDef.restitution = m_restitution;
         body->CreateFixture(&fixtureDef);
     }else {
         qWarning()<<" body parent must be a Wolrd ";

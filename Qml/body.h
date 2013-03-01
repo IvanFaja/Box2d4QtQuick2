@@ -9,6 +9,9 @@ class b2MouseJoint;
 class Body : public WorldItem
 {
     Q_OBJECT
+    Q_PROPERTY(qreal restitution READ restitution WRITE setRestitution)
+    Q_PROPERTY(qreal density READ density WRITE setDensity)
+    Q_PROPERTY(qreal friction READ friction WRITE setFriction)
 public:
     explicit Body(QQuickItem *parent = 0);
     ~Body();
@@ -17,6 +20,16 @@ public:
     Q_INVOKABLE void forceMove( qreal x, qreal y);
     Q_INVOKABLE void endMove();
     b2Body * getBody(){return body;}
+
+    qreal restitution(){return m_restitution;}
+    void setRestitution(qreal res){m_restitution = res;}
+
+    qreal density(){return m_density;}
+    void setDensity(qreal val){m_density = val;}
+
+    qreal friction(){return m_friction;}
+    void setFriction(qreal val){m_friction = val;}
+
 signals:
 
 public slots:
@@ -25,6 +38,9 @@ protected:
     World *m_parent;
     b2World *m_wolrd;
     b2MouseJoint * m_mouse;
+    qreal m_restitution;
+    qreal m_density;
+    qreal m_friction;
 };
 
 #endif // BODY_H
