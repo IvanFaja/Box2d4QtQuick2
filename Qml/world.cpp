@@ -50,7 +50,7 @@ b2Vec2 World::pointToBox2d(const QPointF &point)
 {
     b2Vec2 worldPoint;
     worldPoint.x = sizeToWorld( point.x());
-    worldPoint.y = sizeToWorld( height() - point.y() );
+    worldPoint.y = sizeToWorld( - point.y() );
     return worldPoint;
 }
 
@@ -58,7 +58,7 @@ QPointF World::pointFromWorld(const b2Vec2 &point)
 {
     QPointF itemPoint;
     itemPoint.setX(sizeFromWorld(point.x));
-    itemPoint.setY(height() - sizeFromWorld( point.y ));
+    itemPoint.setY(-sizeFromWorld( point.y ));
     return itemPoint;
 }
 

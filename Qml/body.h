@@ -38,6 +38,8 @@ signals:
 
 public slots:
 protected:
+    virtual void createShape();
+    void creteBody(b2World *wolrd);
     b2Body *body;
     World *m_parent;
     b2World *m_wolrd;
@@ -46,6 +48,7 @@ protected:
     qreal m_density;
     qreal m_friction;
     qreal m_moveForce;
+    int type;
 };
 
 #endif // BODY_H

@@ -7,7 +7,7 @@ class SimpleStaticBody : public Body
 public:
     explicit SimpleStaticBody(QQuickItem *parent = 0);
     void initialize(b2World *wolrd);
-    void sinc();
+
 signals:
     
 public slots:
