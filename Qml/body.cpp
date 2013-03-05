@@ -10,6 +10,8 @@ Body::Body(QQuickItem *parent) :
     m_friction = 0.1f;
     m_moveForce = 11.0f;
     type = b2_dynamicBody;
+    isForcingMove = false;
+    m_allowUserMove = true;
 }
 
 Body::~Body()
@@ -21,6 +23,7 @@ void Body::creteBody(b2World *wolrd)
     b2BodyDef m_def;
     m_def.type = static_cast<b2BodyType>(type);
     const b2Vec2 pos = m_parent->pointToBox2d(position());
+    setTransformOrigin(TopLeft);
     m_def.position.Set(pos.x, pos.y );
     m_def.angle = -rotation()*b2_pi/180.0f;
     m_def.linearDamping = 0.2f;
@@ -70,28 +73,50 @@ void Body::sinc()
     setRotation( -angle*180.0f/b2_pi );
     QPointF qPoint = m_parent->pointFromWorld(pos);
     setPosition( qPoint );
+    if(isForcingMove){
+        stepMove();
+    }else{
+        stepEndMove();
+    }
 }
 
-void Body::forceMove(qreal x, qreal y)
+void Body::stepMove()
 {
-    QQuickItem *p = static_cast<QQuickItem *>(parent());
-    QPointF pPos = QQuickItem::mapToItem(p,QPointF(x,y));
-    b2Vec2 pos = m_parent->pointToBox2d(pPos);
+//    QQuickItem *p = static_cast<QQuickItem *>(parent());
+//    QPointF pPos = QQuickItem::mapToItem(p,QPointF(mx,my));
+    b2Vec2 pos = m_parent->pointToBox2d(QPointF(mx,my));
     if(m_mouse == 0){
         b2MouseJointDef def;
         def.bodyA = m_parent->referenceBody();
         def.bodyB = body;
-        def.collideConnected = false;
+        def.collideConnected = true;
         def.maxForce = m_moveForce *body->GetMass();
         def.target = pos;
         m_mouse = (b2MouseJoint *) m_wolrd->CreateJoint(&def);
     }
     else{
         m_mouse->SetTarget(pos);
+        qDebug()<<"################"<<pos.x<<pos.y;
     }
 }
 
+void Body::forceMove(qreal x, qreal y)
+{
+    if(m_allowUserMove == false)
+        return;
+    mx = x;
+    my = y;
+    isForcingMove = true;
+//    body->SetTransform(pos,body->GetAngle());
+}
+
+
 void Body::endMove()
+{
+    isForcingMove = false;
+}
+
+void Body::stepEndMove()
 {
     if(m_mouse){
         m_wolrd->DestroyJoint(m_mouse);
@@ -99,5 +124,4 @@ void Body::endMove()
         qDebug()<<"body free ";
     }
 }
-
 

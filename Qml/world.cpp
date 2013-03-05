@@ -1,18 +1,36 @@
 #include "world.h"
 #include "Box2D/Box2D.h"
 #include "worlditem.h"
-
+#include "body.h"
 #include <QDebug>
 
 void World::createRefecence()
 {
     b2BodyDef bodyDef;
-    bodyDef.position.Set(0,0);
     m_referenceBody = m_wolrd->CreateBody(&bodyDef);
-    b2PolygonShape box;
-    box.SetAsBox(0.1f,
-                 0.1f);
-    m_referenceBody->CreateFixture(&box,0.0f);
+    itemMoved =0;
+}
+
+void World::addWorldItem(WorldItem *item)
+{
+    m_items.append(item);
+}
+
+void World::move(qreal x, qreal y)
+{
+    if(itemMoved){
+        itemMoved->forceMove(x,y);
+    }else{
+    itemMoved = dynamic_cast<Body*>(childAt(x,y));
+    }
+}
+
+void World::endMove()
+{
+    if(itemMoved){
+        itemMoved->endMove();
+        itemMoved = 0;
+    }
 }
 
 World::World(QQuickItem *parent) :
@@ -71,9 +89,10 @@ void World::componentComplete()
     createRefecence();
     QList<QQuickItem*> children = childItems();
     for(int i = 0 ;i < children.size() ;++i){
-        WorldItem* tiem = dynamic_cast<WorldItem*>(children.at(i));
-        if(tiem){
-            tiem->initialize( m_wolrd );
+        WorldItem* item = dynamic_cast<WorldItem*>(children.at(i));
+        if(item){
+            item->initialize( m_wolrd );
+            addWorldItem( item );
         }else{
             qWarning()<<"World item child must be a Body";
         }
@@ -97,17 +116,11 @@ void World::step()
     float32 timeStep = 1.0f/24.0f;
 
     m_wolrd->Step(timeStep,10,5);
-    QList<QQuickItem*> children = childItems();
-    for(int i = 0 ;i < children.size() ;++i){
-        WorldItem* item = dynamic_cast<WorldItem*>(children.at(i));
-        if(item){
-            item->sinc();
-        }else{
-            qWarning()<<"World item child must be a Body";
-        }
+    for(int i = 0 ;i < m_items.size() ;++i){
+        WorldItem* item = m_items.at(i);
+        item->sinc();
     }
 }
-
 
 qreal World::sizeToWorld(qreal size)
 {

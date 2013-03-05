@@ -6,6 +6,8 @@
 #include <Box2D/Common/b2Math.h>
 class b2World;
 class b2Body;
+class WorldItem;
+class Body;
 class World : public QQuickItem
 {
     Q_OBJECT
@@ -14,6 +16,11 @@ class World : public QQuickItem
 public:
     explicit World(QQuickItem *parent = 0);
     ~World();
+    Q_INVOKABLE qreal sizeToWorld( qreal size );
+    Q_INVOKABLE qreal sizeFromWorld( qreal size );
+    Q_INVOKABLE void move(qreal x, qreal y);
+    Q_INVOKABLE void endMove();
+
     void setGx(float x);
     float gx();
     void setGy(float y);
@@ -23,10 +30,10 @@ public:
     b2Vec2 pointToBox2d( const QPointF &point);
     QPointF pointFromWorld(const b2Vec2 &point);
 
-    Q_INVOKABLE qreal sizeToWorld( qreal size );
-    Q_INVOKABLE qreal sizeFromWorld( qreal size );
 
     void createRefecence();
+    void addWorldItem(WorldItem* item);
+
 signals:
 
 protected:
@@ -39,6 +46,8 @@ private:
     QPointF m_gravity;
     qreal scale;
     b2Body* m_referenceBody;
+    QVector<WorldItem*>m_items;
+    Body* itemMoved;
 };
 
 #endif // WORD_H
