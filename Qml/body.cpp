@@ -22,8 +22,11 @@ void Body::creteBody(b2World *wolrd)
 {
     b2BodyDef m_def;
     m_def.type = static_cast<b2BodyType>(type);
-    const b2Vec2 pos = m_parent->pointToBox2d(position());
-    setTransformOrigin(TopLeft);
+    QPointF qPoint = position();
+    qPoint.setX(qPoint.x()+width()/2);
+    qPoint.setY(qPoint.y()-height()/2);
+    const b2Vec2 pos = m_parent->pointToBox2d(qPoint);
+    setTransformOrigin(Center);
     m_def.position.Set(pos.x, pos.y );
     m_def.angle = -rotation()*b2_pi/180.0f;
     m_def.linearDamping = 0.2f;
@@ -37,15 +40,22 @@ void Body::createShape()
     const qreal hy = m_parent->sizeToWorld(height());
     b2Vec2 ver[4];
 
-    ver[0].Set(0, 0);
-    ver[3].Set(hx, 0);
-    ver[2].Set(hx, -hy);
-    ver[1].Set(0, -hy);
+//    ver[0].Set(0, 0);
+//    ver[1].Set(0, -hy);
+//    ver[2].Set(hx, -hy);
+//    ver[3].Set(hx, 0);
+//    ver[3].Set(0, 0);
+//    ver[2].Set(hx, 0);
+//    ver[1].Set(hx, -hy);
+//    ver[0].Set(0, -hy);
 
+    ver[0].Set(-hx/2, hy/2);
+    ver[1].Set(-hx/2, -hy/2);
+    ver[2].Set(hx/2, -hy/2);
+    ver[3].Set(hx/2, hy/2);
     b2PolygonShape box;
 //        box.SetAsBox(hx,hy);
     box.Set( ver, 4);
-
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &box;
     fixtureDef.density = m_density;
@@ -72,6 +82,8 @@ void Body::sinc()
     float32 angle = body->GetAngle();
     setRotation( -angle*180.0f/b2_pi );
     QPointF qPoint = m_parent->pointFromWorld(pos);
+    qPoint.setX(qPoint.x()-width()/2);
+    qPoint.setY(qPoint.y()-height()/2);
     setPosition( qPoint );
     if(isForcingMove){
         stepMove();

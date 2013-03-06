@@ -10,7 +10,6 @@ void CircleBody::createShape()
 {
     b2CircleShape shape;
     shape.m_radius = m_parent->sizeToWorld(width()/2);
-
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
     fixtureDef.density = m_density;
